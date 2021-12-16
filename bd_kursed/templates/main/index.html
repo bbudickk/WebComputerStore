@@ -1,0 +1,66 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+    <title>Главная</title>
+</head>
+<body>
+
+
+    <header class="header">
+        <div class="header__body">
+            <p class="header__logo">Компьютерный магазин техники</p>
+            <nav class="menu__body">
+                <ul class="list-menu">
+                    <li class="list-menu__itemfake"></li>
+
+                    <li class="list-menu__item"><a href="{% url 'home' %}">На главную</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="list-menu__item"><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+                        <li class="list-menu__item"><a href="{% url 'logout' %}">Выйти</a></li>
+                    {% else %}
+                        <li class="list-menu__item"><a href="{% url 'login' %}">Войти</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    {% block content %}
+ <div class="search"
+         style="display: flex;
+         justify-content: center;
+         margin: 10px;
+
+">
+        <form action="{% url 'search' %}" method="post">
+            {{form.as_table }}
+            <input type="submit" value="Поиск" style="background: rgba(37,38,37, .5); bor">
+
+        </form>
+    </div>
+
+    <div class="container">
+        <ul class="products-class">
+        {% for p in posts %}
+            <li class="product">
+                <img src="{{ p.photo.url }}" class="product-picture">
+
+                <div class="product-main-info">
+                    <a href="{{ p.get_product }}">Название: {{ p.name }}</a>
+                    <p >Цена: {{ p.price }}</p>
+                </div>
+                <div class="product-desription">
+                    {{p.description|truncatewords:10}}
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endblock %}
+</body>
+</html>

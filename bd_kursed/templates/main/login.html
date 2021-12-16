@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<form action="{% url 'login' %}" method="POST" style="
+    display: block;
+    float:left;
+    width: 300px;
+    margin-left: 400px;
+    padding: 10px;
+    font-size: 20px;
+    align: center;
+
+">
+    {{ form.as_p }}
+
+        <input type="submit" value="Авторизоваться">
+    <br>
+<a href="{% url 'register' %}">Нет аккаунта? Зарегестрируйтесь! </a>
+</form>
+
+{% endblock %}
+</body>
+</html>

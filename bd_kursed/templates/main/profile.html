@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="profile-view">
+  <h3> профиль {{ user.username }}</h3>
+  <form action="{% url 'profile' %}" method="post">
+    <label for="{{ form.first_name.id_for_label }}">Имя</label>
+  {{ form.first_name}}
+  <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+  {{ form.last_name}}
+  <label for="{{ form.username.id_for_label }}">Юзернаме</label>
+  <input type="text" value="{{user.username}}" disabled>
+  <input type="submit" value="Сохранить изменения" style="margin-left:5px;  width: 200px; border: 2px solid;
+                                                background: rgba(37,38,37, .5); font-size:15px; color: #919F92">
+  </form>
+
+</div>
+<div class="product-basket">
+  <h2 style="justify-content: center; display: flex">Корзина</h2>
+{% if baskets %}
+  {% for basket in baskets %}
+  <div style="border: 2px solid; padding: 3px; margin-bottom: 8px">
+    <h2>Название: {{ basket.product.name }}</h2>
+  <h4> Описание: {{ basket.product.description }}</h4>
+  <h3> Покупатель: {{ basket.user.username }}</h3>
+   <h4> Количество: {{ basket.count }}
+
+        <a href="{% url 'basket_add' basket.product.id %}" style="background: rgba(37,38,37, .5);  border:1px solid;  width:10px;margin:10px; color: #919F92">
+          добавить
+        </a>
+        <a href="{% url 'basket_delete' basket.id %}" style="background: rgba(37,38,37, .5);border:1px solid;  width:15px;  margin:10px; color: #919F92">
+          удалить
+        </a>
+     </h4>
+    <h3> {{ basket.sum }}</h3>
+  </div>
+  {% endfor %}
+  <h2> Стоимость {{ total_count }} товаров - {{ total_sum }} </h2>
+  <input type="submit" value="Оплатить {{ total_sum }}" style="margin-left:80px;  width: 370px; padding: 20px; margin-top:30px; border: 2px solid;
+                                                background: rgba(37,38,37, .5); font-size:40px;color: #919F92">
+
+
+{% else %}
+<h3> Корзина пуста</h3>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <form action="{% url 'register' %}" method="POST" style="
+        display: block;
+        float:left;
+        width: 280px;
+        margin-left: 400px;
+        padding: 10px;
+        font-size: 20px;
+        align: center;
+        height: 15px;
+    ">
+        <label for="{{ form.first_name.id_for_label}}">Ваше имя</label>
+        {{ form.first_name }}
+        <label for="{{ form.last_name.id_for_label}}">Ваша Фамилия</label>
+        {{ form.last_name }}
+        <label for="{{ form.username.id_for_label}}">Username</label>
+        {{ form.username }}
+        <label for="{{ form.password1.id_for_label}}">Пароль</label>
+        {{ form.password1 }}
+        <label for="{{ form.password2.id_for_label}}">Подтвердить пароль</label>
+        {{ form.password2 }}
+
+            <input type="submit" value="Зарегестрироваться">
+    </form>
+{% endblock %}
+</body>
+</html>
